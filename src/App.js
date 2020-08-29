@@ -42,20 +42,12 @@ class App extends Component {
   }
   
   render() {
-  return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-lo go" alt="logo" />
-    //     <h1 className="App-title">Welcome to React, Nurba</h1> 
-    //   </header>
-    // </div>
 
-    <div>
 
-      <div id='button_wrapper'><button onClick={() => this.togglePersons()}>Switch names</button></div>
+    let persons = null;
 
-      {
-        this.state.showPersons === true ?
+    if (this.state.showPersons) {
+      persons = (
         <div>
         <Prs 
         company={this.state.companies[0].company} 
@@ -71,11 +63,26 @@ class App extends Component {
         <Prs 
         company={this.state.companies[2].company} 
         years={this.state.companies[2].years}/>
-        
-        
-      </div> : null
+      </div>
+      )
+    }
 
-      }
+  return (
+    // <div className="App">
+    //   <header className="App-header">
+    //     <img src={logo} className="App-lo go" alt="logo" />
+    //     <h1 className="App-title">Welcome to React, Nurba</h1> 
+    //   </header>
+    // </div>
+    
+    <div>
+
+
+      <div id='button_wrapper'><button onClick={() => this.togglePersons()}>Switch names</button></div>
+
+      {persons}
+        
+
     </div>
     
   );
