@@ -25,13 +25,19 @@ class App extends Component {
     } )
   }
 
+  togglePersons = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({showPersons: !doesShow})
+  }
+
   nameChangedHandler = (event) => {
     this.setState( {
       companies: [
         {company: 'Google', years: 2},
         {company: event.target.value, years: 3},
         {company: 'Amazon', years: 3}
-      ]
+      ],
+      showPersons: false
     } )
   }
   
@@ -45,22 +51,31 @@ class App extends Component {
     // </div>
 
     <div>
-      <Prs 
-      company={this.state.companies[0].company} 
-      years={this.state.companies[0].years} />
 
-      <Prs 
-      company={this.state.companies[1].company} 
-      years={this.state.companies[1].years}
-      click={this.switchNameHandler.bind(this, "Netflix")}
-      changed={this.nameChangedHandler}
-      >My job title: Front-End Developer</Prs>
-      
-      <Prs 
-      company={this.state.companies[2].company} 
-      years={this.state.companies[2].years}/>
-      <div id='button_wrapper'><button onClick={() => this.switchNameHandler("Youtube")}>Switch names</button></div>
-      
+      <div id='button_wrapper'><button onClick={() => this.togglePersons()}>Switch names</button></div>
+
+      {
+        this.state.showPersons === true ?
+        <div>
+        <Prs 
+        company={this.state.companies[0].company} 
+        years={this.state.companies[0].years} />
+
+        <Prs 
+        company={this.state.companies[1].company} 
+        years={this.state.companies[1].years}
+        click={this.switchNameHandler.bind(this, "Netflix")}
+        changed={this.nameChangedHandler}
+        >My job title: Front-End Developer</Prs>
+        
+        <Prs 
+        company={this.state.companies[2].company} 
+        years={this.state.companies[2].years}/>
+        
+        
+      </div> : null
+
+      }
     </div>
     
   );
