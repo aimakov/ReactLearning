@@ -11,7 +11,8 @@ class App extends Component {
       {company: 'Google', years: 2},
       {company: 'Facebook', years: 3},
       {company: 'Amazon', years: 3}
-    ]
+    ],
+    showPersons: false
   };
 
   switchNameHandler = (newName) => {
@@ -25,8 +26,12 @@ class App extends Component {
     } )
   }
 
+  deletePersonHandler = () => {
+
+  }
+
   togglePersons = () => {
-    const doesShow = this.state.showPersons;
+    let doesShow = this.state.showPersons;
     this.setState({showPersons: !doesShow})
   }
 
@@ -36,8 +41,7 @@ class App extends Component {
         {company: 'Google', years: 2},
         {company: event.target.value, years: 3},
         {company: 'Amazon', years: 3}
-      ],
-      showPersons: false
+      ]
     } )
   }
   
@@ -49,7 +53,17 @@ class App extends Component {
     if (this.state.showPersons) {
       persons = (
         <div>
-        <Prs 
+
+        {this.state.companies.map((person, index) => {
+          return <Prs 
+          company={person.company} 
+          years={person.years}
+          click={this.deletePersonHandler}
+          changed={this.nameChangedHandler} 
+          />
+        })}
+
+        {/* <Prs 
         company={this.state.companies[0].company} 
         years={this.state.companies[0].years} />
 
@@ -62,7 +76,7 @@ class App extends Component {
         
         <Prs 
         company={this.state.companies[2].company} 
-        years={this.state.companies[2].years}/>
+        years={this.state.companies[2].years}/> */}
       </div>
       )
     }
@@ -75,12 +89,12 @@ class App extends Component {
     //   </header>
     // </div>
     
-    <div>
+    <div className='App'>
 
 
       <div id='button_wrapper'><button onClick={() => this.togglePersons()}>Switch names</button></div>
 
-      {persons}
+      <div id='persons_wrapper'>{persons}</div>
         
 
     </div>
