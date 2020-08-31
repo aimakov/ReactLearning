@@ -1,6 +1,7 @@
 import React, { useState, Component } from 'react';
 import './App.css';
 import Prs from './Person/Person';
+import person from './Person/Person';
 
 
 // class App extends Component {
@@ -8,9 +9,9 @@ class App extends Component {
 
   state = {
     companies: [
-      {company: 'Google', years: 2},
-      {company: 'Facebook', years: 3},
-      {company: 'Amazon', years: 3}
+      {id: '1', company: 'Google', years: 2},
+      {id: '2', company: 'Facebook', years: 3},
+      {id: '3', company: 'Amazon', years: 3}
     ],
     showPersons: false
   };
@@ -26,8 +27,10 @@ class App extends Component {
     } )
   }
 
-  deletePersonHandler = () => {
-
+  deletePersonHandler = (companyIndex) => {
+    const companies = [...this.state.companies];
+    companies.splice(companyIndex,1);
+    this.setState({companies: companies});
   }
 
   togglePersons = () => {
@@ -35,13 +38,24 @@ class App extends Component {
     this.setState({showPersons: !doesShow})
   }
 
-  nameChangedHandler = (event) => {
+  nameChangedHandler = (event, id) => {
+
+    const companyIndex = this.state.companies.findIndex(c => {
+      return c.id === id;
+    });
+
+    const company = {...this.state.companies[companyIndex]};    
+
+    // const company = Object.assign({},this.state.companies[companyIndex]);
+
+    company.company = event.target.value;
+
+    const companies = [...this.state.companies];
+    
+    companies[companyIndex] = company;
+
     this.setState( {
-      companies: [
-        {company: 'Google', years: 2},
-        {company: event.target.value, years: 3},
-        {company: 'Amazon', years: 3}
-      ]
+      companies: companies
     } )
   }
   
@@ -54,40 +68,21 @@ class App extends Component {
       persons = (
         <div>
 
-        {this.state.companies.map((person, index) => {
+        {this.state.companies.map((companies, index) => {
           return <Prs 
-          company={person.company} 
-          years={person.years}
-          click={this.deletePersonHandler}
-          changed={this.nameChangedHandler} 
-          />
+          company={companies.company} 
+          years={companies.years}
+          click={() => this.deletePersonHandler(index)}
+          changed={(event) => this.nameChangedHandler(event,companies.id)}
+          key={companies.id}
+          />  
         })}
-
-        {/* <Prs 
-        company={this.state.companies[0].company} 
-        years={this.state.companies[0].years} />
-
-        <Prs 
-        company={this.state.companies[1].company} 
-        years={this.state.companies[1].years}
-        click={this.switchNameHandler.bind(this, "Netflix")}
-        changed={this.nameChangedHandler}
-        >My job title: Front-End Developer</Prs>
-        
-        <Prs 
-        company={this.state.companies[2].company} 
-        years={this.state.companies[2].years}/> */}
       </div>
       )
     }
 
   return (
-    // <div className="App">
-    //   <header className="App-header">
-    //     <img src={logo} className="App-lo go" alt="logo" />
-    //     <h1 className="App-title">Welcome to React, Nurba</h1> 
-    //   </header>
-    // </div>
+
     
     <div className='App'>
 
@@ -105,23 +100,3 @@ class App extends Component {
 }
 
 export default App;
-
-
-// state = {
-//   companies: [
-//     {company: 'Google', years: 2},
-//     {company: 'Facebook', years: 3},
-//     {company: 'Amazon', years: 3}
-//   ]
-// };
-
-// switchNameHandler = () => {
-//   // console.log("Was clicked!")
-//   this.setState({
-//     companies: [
-//       {company: 'Google', years: 2},
-//       {company: 'Facebook', years: 3},
-//       {company: 'Amazon', years: 10}
-//     ]
-//   })
-// };
