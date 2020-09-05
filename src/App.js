@@ -1,7 +1,7 @@
 import React, { useState, Component } from 'react';
 import './App.css';
 import Prs from './Person/Person';
-import person from './Person/Person';
+import Radium, { StyleRoot } from 'radium'
 
 
 // class App extends Component {
@@ -64,6 +64,17 @@ class App extends Component {
 
     let persons = null;
 
+    const style = {
+      backgroundColor: 'green',
+      color: 'white',
+      width: '100px',
+      height: '50px',
+      ':hover': {
+          backgroundColor: 'lightgreen',
+          color: 'black'
+      }
+    }
+
     if (this.state.showPersons) {
       persons = (
         <div>
@@ -79,24 +90,31 @@ class App extends Component {
         })}
       </div>
       )
+
+        style.backgroundColor = 'red'
+        style[':hover'] = {
+          backgroundColor: 'coral',
+          color: 'black'
+        }
+        
+
     }
 
   return (
-
+    <StyleRoot>
     
     <div className='App'>
 
 
-      <div id='button_wrapper'><button onClick={() => this.togglePersons()}>Switch names</button></div>
+      <div id='button_wrapper' ><button style={style} onClick={() => this.togglePersons()}>Switch names</button></div>
 
       <div id='persons_wrapper'>{persons}</div>
         
 
     </div>
-    
+    </StyleRoot>
   );
-  // return React.createElement('div',{className: 'App'}, React.createElement('h1', null, 'Hi, I\'m a React App!!!'));
 };
 }
 
-export default App;
+export default Radium(App);
