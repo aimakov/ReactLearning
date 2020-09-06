@@ -1,7 +1,6 @@
 import React, { useState, Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Prs from './Person/Person';
-import styled from 'styled-components'
 
 
 // class App extends Component {
@@ -58,18 +57,9 @@ class App extends Component {
   render() {
 
 
-    let persons = null;
+    let btnClass = '';
 
-    const style = {
-      backgroundColor: 'green',
-      color: 'white',
-      width: '100px',
-      height: '50px',
-      ':hover': {
-          backgroundColor: 'lightgreen',
-          color: 'black'
-      }
-    }
+    let persons = null;
 
     if (this.state.showPersons) {
       persons = (
@@ -86,36 +76,19 @@ class App extends Component {
         })}
       </div>
       )
-
-        style.backgroundColor = 'red'
-        style[':hover'] = {
-          backgroundColor: 'coral',
-          color: 'black'
-        }
         
+      btnClass = classes.Red;
 
     }
-
-    const StyledButton = styled.button`
-      background-color: ${props => props.alt ? 'red' : 'green'};
-      color: white;
-      width: 100px;
-      height: 50px;
-
-      &:hover {
-          background-color: ${props => props.alt ? 'coral' : 'lightgreen'};
-          color: black;
-    }
-    `
 
   return (
     
-    <div className='App'>
+    <div className={classes.App}>
 
 
-      <div id='button_wrapper' ><StyledButton alt={this.state.showPersons } onClick={() => this.togglePersons()}>Switch names</StyledButton></div>
+      <button className={btnClass} onClick={() => this.togglePersons()}>Switch names</button>
 
-      <div id='persons_wrapper'>{persons}</div>
+      {persons}
         
 
     </div>
