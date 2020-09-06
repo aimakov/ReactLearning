@@ -1,7 +1,7 @@
 import React, { useState, Component } from 'react';
 import './App.css';
 import Prs from './Person/Person';
-import Radium, { StyleRoot } from 'radium'
+import styled from 'styled-components'
 
 
 // class App extends Component {
@@ -9,25 +9,21 @@ class App extends Component {
 
   state = {
     companies: [
-      {id: '1', company: 'Google', years: 2},
-      {id: '2', company: 'Facebook', years: 3},
-      {id: '3', company: 'Amazon', years: 3}
+      {id: 'qwe', company: 'Google', years: 2},
+      {id: 'asd', company: 'Facebook', years: 3},
+      {id: 'zxc', company: 'Amazon', years: 3}
     ],
     showPersons: false
   };
 
-  switchNameHandler = (newName) => {
-    // console.log("Was clicked!")
-    this.setState( {
-      companies: [
-        {company: newName, years: 2},
-        {company: 'Facebook', years: 3},
-        {company: 'Amazon', years: 10}
-      ]
-    } )
-  }
+  deletePersonHandler = (companyId) => {
 
-  deletePersonHandler = (companyIndex) => {
+    const companyIndex = this.state.companies.findIndex(c => {
+      return c.id === companyId;
+    })
+
+
+
     const companies = [...this.state.companies];
     companies.splice(companyIndex,1);
     this.setState({companies: companies});
@@ -52,7 +48,7 @@ class App extends Component {
 
     const companies = [...this.state.companies];
     
-    companies[companyIndex] = company;
+    companies[companyIndex].company = company.company;
 
     this.setState( {
       companies: companies
@@ -79,11 +75,11 @@ class App extends Component {
       persons = (
         <div>
 
-        {this.state.companies.map((companies, index) => {
+        {this.state.companies.map((companies) => {
           return <Prs 
           company={companies.company} 
           years={companies.years}
-          click={() => this.deletePersonHandler(index)}
+          click={() => this.deletePersonHandler(companies.id)}
           changed={(event) => this.nameChangedHandler(event,companies.id)}
           key={companies.id}
           />  
@@ -100,21 +96,31 @@ class App extends Component {
 
     }
 
+    const StyledButton = styled.button`
+      background-color: ${props => props.alt ? 'red' : 'green'};
+      color: white;
+      width: 100px;
+      height: 50px;
+
+      &:hover {
+          background-color: ${props => props.alt ? 'coral' : 'lightgreen'};
+          color: black;
+    }
+    `
+
   return (
-    <StyleRoot>
     
     <div className='App'>
 
 
-      <div id='button_wrapper' ><button style={style} onClick={() => this.togglePersons()}>Switch names</button></div>
+      <div id='button_wrapper' ><StyledButton alt={this.state.showPersons } onClick={() => this.togglePersons()}>Switch names</StyledButton></div>
 
       <div id='persons_wrapper'>{persons}</div>
         
 
     </div>
-    </StyleRoot>
   );
 };
 }
 
-export default Radium(App);
+export default App;
