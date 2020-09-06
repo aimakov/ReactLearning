@@ -10,7 +10,8 @@ class App extends Component {
     companies: [
       {id: 'qwe', company: 'Google', years: 2},
       {id: 'asd', company: 'Facebook', years: 3},
-      {id: 'zxc', company: 'Amazon', years: 3}
+      {id: 'zxc', company: 'Amazon', years: 3},
+      {id: 'Hyewon', company: 'Disney', years: 1}
     ],
     showPersons: false
   };
