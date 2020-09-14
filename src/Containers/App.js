@@ -6,6 +6,11 @@ import Cockpit from '../Components/Cockpit/Cockpit'
 // class App extends Component {
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+  }
+
   state = {
     companies: [
       {id: 'qwe', company: 'Google', years: 2},
@@ -15,6 +20,11 @@ class App extends Component {
     ],
     showCompanies: false
   };
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
 
   deletePersonHandler = (companyId) => {
 
@@ -54,8 +64,18 @@ class App extends Component {
         companies: companies
     } )
   }
-  
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount')
+  }
+
+  componentWillUnmount() {
+    console.log('[App.js] componentWillUnmount')
+  }
+
   render() {
+
+    console.log('[App.js] render')
 
     let persons = null;
 

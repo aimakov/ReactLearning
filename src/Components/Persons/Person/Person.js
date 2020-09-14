@@ -3,6 +3,8 @@ import classes from './Person.css';
 
 const person = (props) => {
 
+console.log('[Person.js] rendering...')
+
 return (
     <div className={classes.Person}>
         <h1 onClick={props.click}>Hi, I'm Hyewon and I'll get to {props.company} in {props.years} years!</h1>
