@@ -1,7 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import classes from './Person.css';
 
 const person = (props) => {
+
+    useEffect(() => {
+        console.log('[Person.js] useEffect test');
+
+        return () => {
+            console.log('[Person.js] cleanup work in useEffect');
+        };
+    }, []);
 
 console.log('[Person.js] rendering...')
 

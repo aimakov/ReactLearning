@@ -1,20 +1,28 @@
-import React from 'react'
+import React, { Component } from 'react'
 import Prs from './Person/Person'
 
-const persons = (props) => {
+class Persons extends Component {
 
-    console.log('[Persons.js] rendering...');
-    return(
-    props.companies.map((companies) => {
+    componentWillUnmount() {
+      console.log('[Persons.js] componentWillUnmount');
+    }
+
+
+    render(){
+      console.log('[Persons.js] rendering...');
+      return(this.props.companies.map((companies) => {
         return <Prs 
         company={companies.company} 
         years={companies.years}
-        click={() => props.clicked(companies.id)}
-        changed={(event) => props.changed(event,companies.id)}
+        click={() => this.props.clicked(companies.id)}
+        changed={(event) => this.props.changed(event,companies.id)}
         key={companies.id}
         />  
       })
       );
+    }
+    
+    
     };
 
-export default persons;
+export default Persons;

@@ -102,6 +102,7 @@ class App extends Component {
       <Cockpit
         showCompanies = {this.state.showCompanies}
         clicked={this.togglePersons}
+        companies={this.state.companies}
       />
       {persons}
         
