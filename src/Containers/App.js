@@ -18,7 +18,8 @@ class App extends Component {
       {id: 'zxc', company: 'Amazon', years: 3},
       // {id: 'Hyewon', company: 'Disney', years: 1}
     ],
-    showCompanies: false
+    showCompanies: false,
+    showCockpit: true
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -65,6 +66,11 @@ class App extends Component {
     } )
   }
 
+  deleteCockpit = () => {
+    let tempCockpit = this.state.showCockpit;
+    this.setState({showCockpit: !tempCockpit})
+  }
+
   componentDidMount() {
     console.log('[App.js] componentDidMount')
   }
@@ -94,16 +100,27 @@ class App extends Component {
 
     }
 
+    let cockpit = null;
+
+    if(this.state.showCockpit) {
+      cockpit = (
+        <div>
+          <Cockpit
+            showCompanies = {this.state.showCompanies}
+            clicked={this.togglePersons}
+            // companies={this.state.companies}
+      />
+        </div>
+        
+      )
+    }
+
   return (
     
     <div className={classes.App}>
 
-
-      <Cockpit
-        showCompanies = {this.state.showCompanies}
-        clicked={this.togglePersons}
-        companies={this.state.companies}
-      />
+      <button style={{marginTop:'10px'}} onClick={this.deleteCockpit}>Remove Cockpit</button>
+      {cockpit}
       {persons}
         
 

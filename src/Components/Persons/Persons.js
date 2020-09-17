@@ -7,6 +7,17 @@ class Persons extends Component {
       console.log('[Persons.js] componentWillUnmount');
     }
 
+    shouldComponentUpdate(nextProps, nextState) {
+      if (nextProps.companies !== this.props.companies) {
+        console.log('[Persons.js] should be updated');
+        return true;
+        
+      }
+      else{
+        return false;
+      }
+    }
+
 
     render(){
       console.log('[Persons.js] rendering...');
